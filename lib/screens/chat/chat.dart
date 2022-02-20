@@ -46,6 +46,7 @@ class _ChatScreenState extends State<ChatScreen> {
           keyboardType: TextInputType.multiline,
           controller: _nameController,
           cursorColor: Colors.white,
+          style: const TextStyle(color: Colors.white, fontSize: 16),
           decoration: const InputDecoration(
               hintText: 'Введите имя',
               hintStyle: TextStyle(color: Colors.white54)),
@@ -83,17 +84,31 @@ class _ChatScreenState extends State<ChatScreen> {
                           vertical: 5, horizontal: 5),
                       itemCount: _users.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.deepPurple,
-                            child: Text(
-                              _users[index].author.name[0],
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 24),
+                        return Column(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: _users[index].author.name ==
+                                        _nameController.text
+                                    ? Colors.deepPurple[100]
+                                    : const Color.fromARGB(20, 0, 0, 0),
+                              ),
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: Colors.deepPurple,
+                                  child: Text(
+                                    _users[index].author.name[0],
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 24),
+                                  ),
+                                ),
+                                title: Text(_users[index].author.name),
+                                subtitle: Text(_users[index].message),
+                              ),
                             ),
-                          ),
-                          title: Text(_users[index].author.name),
-                          subtitle: Text(_users[index].message),
+                            const SizedBox(height: 4),
+                          ],
                         );
                       }),
                 ),
