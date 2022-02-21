@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surf_practice_chat_flutter/screens/chat/cubit/chat_cubit.dart';
+import 'package:surf_practice_chat_flutter/screens/chat/cubit/profile_cubit.dart';
 import 'package:surf_practice_chat_flutter/screens/utils/status.dart';
 
 class ChatFieldWidget extends StatelessWidget {
@@ -9,7 +10,7 @@ class ChatFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ChatCubit _chatCubit = context.read<ChatCubit>();
-    return BlocBuilder<ChatCubit, ChatState>(
+    return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         return Row(
           children: [
@@ -40,26 +41,29 @@ class ChatFieldWidget extends StatelessWidget {
                   hintText: 'Сообщение',
                 ),
                 onChanged: (value) =>
-                    context.read<ChatCubit>().messageChanged(value),
+                    context.read<ProfileCubit>().messageChanged(value),
               ),
             ),
             GestureDetector(
               onTap: () async {
                 if (state.message.valid && state.authorName.valid) {
                   await _chatCubit.sendMessage(
-                    nickname: state.authorName.value,
-                    message: state.message.value,
-                  );
-                }
+                      nickname: state.authorName.value,
+                      message: state.message.value);
+                } else if (state.authorName.invalid) {}
               },
               behavior: HitTestBehavior.opaque,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: (state.status == Status.waiting)
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : const Icon(Icons.send),
+              child: BlocBuilder<ChatCubit, ChatState>(
+                builder: (context, state) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: (state.status == Status.waiting)
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : const Icon(Icons.send),
+                  );
+                },
               ),
             ),
           ],

@@ -6,6 +6,7 @@ import 'package:surf_practice_chat_flutter/data/chat/repository/firebase.dart';
 import 'package:surf_practice_chat_flutter/firebase_options.dart';
 import 'package:surf_practice_chat_flutter/screens/chat/chat.dart';
 import 'package:surf_practice_chat_flutter/screens/chat/cubit/chat_cubit.dart';
+import 'package:surf_practice_chat_flutter/screens/chat/cubit/profile_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,8 +34,15 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: Colors.deepPurple,
         useMaterial3: true,
       ),
-      home: BlocProvider(
-        create: (_) => ChatCubit(chatRepository),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => ChatCubit(chatRepository),
+          ),
+          BlocProvider(
+            create: (_) => ProfileCubit(),
+          ),
+        ],
         child: const ChatScreen(),
       ),
     );

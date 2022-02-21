@@ -39,7 +39,7 @@ class CardUsersWidget extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 12,
             right: 13,
             left: 13,
@@ -62,9 +62,7 @@ class CardUsersWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 7,
-                  ),
+                  const SizedBox(height: 7),
                   Expanded(
                     child: Center(
                       child: Text(
@@ -73,38 +71,9 @@ class CardUsersWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 2,
-                  ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     SvgPicture.asset(
-                  //       AppResources.geopointIcon,
-                  //       color: AppColors.primaryColor,
-                  //       fit: BoxFit.cover,
-                  //     ),
-                  //     SizedBox(
-                  //       width: 4.w,
-                  //     ),
-                  //     Padding(
-                  //       padding: EdgeInsets.only(bottom: 5.0.h),
-                  //       child: Text(
-                  //         ' City',
-                  //         style: AppStyles.profileCardUserLocationStyle,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
+                  const SizedBox(height: 2),
                 ],
               ),
-              // Positioned(
-              //   right: 0,
-              //   child: SvgPicture.asset(
-              //     AppResources.verifiedIcon,
-              //     width: 27.0.w,
-              //   ),
-              // ),
             ],
           ),
         ),

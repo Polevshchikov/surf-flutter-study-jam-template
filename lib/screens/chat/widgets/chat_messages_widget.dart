@@ -134,28 +134,6 @@ class ChatMessageWidget extends StatelessWidget {
                     ],
                   ),
           );
-
-          // Column(
-          //   children: [
-          //     CardUsersWidget(title: chatMessages[index].author.name[0]),
-          //     const SizedBox(height: 4),
-          //   ],
-          // );
         });
   }
 }
-// CircleAvatar(
-//                             backgroundColor: Colors.deepPurple,
-//                             child: Text(
-//                               chatMessages[index].author.name[0],
-//                               style: const TextStyle(
-//                                   color: Colors.white, fontSize: 24),
-//                             ),
-//                           ),
-//  Text(
-//                               chatMessages[index].author.name,
-//                               style: const TextStyle(
-//                                   color: Colors.black,
-//                                   fontSize: 16,
-//                                   fontWeight: FontWeight.w500),
-//                             ),
