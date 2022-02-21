@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
+import 'package:surf_practice_chat_flutter/screens/chat/utils/side_arrow_left.dart';
+import 'package:surf_practice_chat_flutter/screens/chat/utils/side_arrow_right.dart';
+import 'package:surf_practice_chat_flutter/screens/chat/widgets/card_users_widget.dart';
 
 class ChatMessageWidget extends StatelessWidget {
   final List<ChatMessageDto> chatMessages;
@@ -12,77 +16,146 @@ class ChatMessageWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         itemCount: chatMessages.length,
         itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: [
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: chatMessages[index].author is ChatUserLocalDto
-                      ? Colors.blueAccent[100]
-                      : const Color.fromARGB(20, 0, 0, 0),
-                ),
-                child: chatMessages[index] is ChatMessageGeolocationDto
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                          left: 15.0,
-                          top: 8,
-                          bottom: 8,
-                        ),
-                        child: Row(
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: chatMessages[index].author is ChatUserLocalDto
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.deepPurple,
-                              child: Text(
-                                chatMessages[index].author.name[0],
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 24),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    chatMessages[index].author.name,
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: ClipPath(
+                                clipper: SideArrowRightClipper(),
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.blue[200],
                                   ),
-                                  const Text('Поделился геолокацией'),
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: const Text(
-                                      'Открыть в картах',
-                                      style: TextStyle(
-                                          color: Colors.deepPurple,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 20.0,
+                                      top: 10,
+                                      right: 40,
+                                      bottom: 10,
                                     ),
+                                    child: chatMessages[index]
+                                            is ChatMessageGeolocationDto
+                                        ? Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                  'Поделился геолокацией'),
+                                              GestureDetector(
+                                                onTap: () {},
+                                                child: const Text(
+                                                  'Открыть в картах',
+                                                  style: TextStyle(
+                                                      color: Colors.deepPurple,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : Text(chatMessages[index].message),
                                   ),
-                                ],
+                                ),
                               ),
                             ),
+                            Text(DateFormat('yyyy-MM-dd – kk:mm')
+                                .format(chatMessages[index].createdDateTime)),
                           ],
                         ),
-                      )
-                    : ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.deepPurple,
-                          child: Text(
-                            chatMessages[index].author.name[0],
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 24),
-                          ),
-                        ),
-                        title: Text(chatMessages[index].author.name),
-                        subtitle: Text(chatMessages[index].message),
                       ),
-              ),
-              const SizedBox(height: 4),
-            ],
+                      const SizedBox(width: 5),
+                      CardUsersWidget(chatMessage: chatMessages[index]),
+                    ],
+                  )
+                : Row(
+                    children: [
+                      CardUsersWidget(chatMessage: chatMessages[index]),
+                      const SizedBox(width: 5),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: ClipPath(
+                                clipper: SideArrowLeftClipper(),
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.green[200],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 40.0,
+                                      top: 10,
+                                      right: 20,
+                                      bottom: 10,
+                                    ),
+                                    child: chatMessages[index]
+                                            is ChatMessageGeolocationDto
+                                        ? Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                  'Поделился геолокацией'),
+                                              GestureDetector(
+                                                onTap: () {},
+                                                child: const Text(
+                                                  'Открыть в картах',
+                                                  style: TextStyle(
+                                                      color: Colors.deepPurple,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : Text(chatMessages[index].message),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(DateFormat('yyyy-MM-dd – kk:mm')
+                                .format(chatMessages[index].createdDateTime)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
           );
+
+          // Column(
+          //   children: [
+          //     CardUsersWidget(title: chatMessages[index].author.name[0]),
+          //     const SizedBox(height: 4),
+          //   ],
+          // );
         });
   }
 }
+// CircleAvatar(
+//                             backgroundColor: Colors.deepPurple,
+//                             child: Text(
+//                               chatMessages[index].author.name[0],
+//                               style: const TextStyle(
+//                                   color: Colors.white, fontSize: 24),
+//                             ),
+//                           ),
+//  Text(
+//                               chatMessages[index].author.name,
+//                               style: const TextStyle(
+//                                   color: Colors.black,
+//                                   fontSize: 16,
+//                                   fontWeight: FontWeight.w500),
+//                             ),

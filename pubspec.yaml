@@ -39,7 +39,7 @@ dependencies:
   equatable: ^2.0.3
   flutter_bloc: ^8.0.1
   formz: ^0.4.1
-  geolocator: ^8.2.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
