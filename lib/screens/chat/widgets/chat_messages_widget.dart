@@ -13,7 +13,8 @@ class ChatMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        reverse: true,
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         itemCount: chatMessages.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
@@ -23,7 +24,7 @@ class ChatMessageWidget extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Align(
                               alignment: Alignment.centerRight,
@@ -37,65 +38,6 @@ class ChatMessageWidget extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                       left: 20.0,
-                                      top: 10,
-                                      right: 40,
-                                      bottom: 10,
-                                    ),
-                                    child: chatMessages[index]
-                                            is ChatMessageGeolocationDto
-                                        ? Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text(
-                                                  'Поделился геолокацией'),
-                                              GestureDetector(
-                                                onTap: () {},
-                                                child: const Text(
-                                                  'Открыть в картах',
-                                                  style: TextStyle(
-                                                      color: Colors.deepPurple,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w700),
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        : Text(chatMessages[index].message),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Text(DateFormat('yyyy-MM-dd – kk:mm')
-                                .format(chatMessages[index].createdDateTime)),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      CardUsersWidget(chatMessage: chatMessages[index]),
-                    ],
-                  )
-                : Row(
-                    children: [
-                      CardUsersWidget(chatMessage: chatMessages[index]),
-                      const SizedBox(width: 5),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: ClipPath(
-                                clipper: SideArrowLeftClipper(),
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.green[200],
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 40.0,
                                       top: 10,
                                       right: 20,
                                       bottom: 10,
@@ -126,8 +68,111 @@ class ChatMessageWidget extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text(DateFormat('yyyy-MM-dd – kk:mm')
-                                .format(chatMessages[index].createdDateTime)),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    DateFormat('yyyy-MM-dd').format(
+                                        chatMessages[index].createdDateTime),
+                                    style: TextStyle(
+                                        color: Colors.blue[900],
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    DateFormat('kk:mm').format(
+                                        chatMessages[index].createdDateTime),
+                                    style: TextStyle(
+                                        color: Colors.blue[900],
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      CardUsersWidget(chatMessage: chatMessages[index]),
+                    ],
+                  )
+                : Row(
+                    children: [
+                      CardUsersWidget(chatMessage: chatMessages[index]),
+                      const SizedBox(width: 5),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: ClipPath(
+                                clipper: SideArrowLeftClipper(),
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.green[200],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 20.0,
+                                      top: 10,
+                                      right: 20,
+                                      bottom: 10,
+                                    ),
+                                    child: chatMessages[index]
+                                            is ChatMessageGeolocationDto
+                                        ? Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                  'Поделился геолокацией'),
+                                              GestureDetector(
+                                                onTap: () {},
+                                                child: const Text(
+                                                  'Открыть в картах',
+                                                  style: TextStyle(
+                                                      color: Colors.deepPurple,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : Text(chatMessages[index].message),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    DateFormat('yyyy-MM-dd').format(
+                                        chatMessages[index].createdDateTime),
+                                    style: TextStyle(
+                                        color: Colors.green[900],
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    DateFormat('kk:mm').format(
+                                        chatMessages[index].createdDateTime),
+                                    style: TextStyle(
+                                        color: Colors.green[900],
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),

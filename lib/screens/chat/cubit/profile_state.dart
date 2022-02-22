@@ -7,7 +7,7 @@ class ProfileState extends Equatable {
   final bool isShowName;
 
   const ProfileState({
-    this.authorName = const InputName.pure(),
+    this.authorName = const InputName.dirty('User'),
     this.message = const InputText.pure(),
     this.inputStatus = FormzStatus.pure,
     this.isShowName = true,

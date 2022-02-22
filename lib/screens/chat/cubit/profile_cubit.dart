@@ -17,15 +17,11 @@ class ProfileCubit extends Cubit<ProfileState> {
     ));
   }
 
-  void nameChanged(String value) {
+  void isShowNameChanged(String value) {
     final name = InputName.dirty(value);
     emit(state.copyWith(
-      authorName: name,
-      inputStatus: Formz.validate([name]),
-    ));
-  }
-
-  void isShowNameChanged() {
-    emit(state.copyWith(isShowName: !state.isShowName));
+        authorName: name,
+        inputStatus: Formz.validate([name]),
+        isShowName: !state.isShowName));
   }
 }

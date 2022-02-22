@@ -9,14 +9,14 @@ class CardUsersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150,
+      width: MediaQuery.of(context).size.width * 0.3,
       height: 100,
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: chatMessage.author is ChatUserLocalDto
               ? Colors.blue[300]
               : Colors.green[300],
-          borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(30.0)),
           boxShadow: [
             BoxShadow(
               color: chatMessage.author is ChatUserLocalDto
@@ -47,32 +47,30 @@ class CardUsersWidget extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.deepPurple,
-                      child: Text(
-                        chatMessage.author.name[0],
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 24),
+              Center(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.deepPurple,
+                        child: Text(
+                          chatMessage.author.name[0],
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 24),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 7),
-                  Expanded(
-                    child: Center(
+                    Expanded(
                       child: Text(
                         chatMessage.author.name,
-                        overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow.visible,
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                ],
+                    const SizedBox(height: 2),
+                  ],
+                ),
               ),
             ],
           ),
