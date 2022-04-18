@@ -13,9 +13,9 @@ void main() async {
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform(
-      androidKey: 'AIzaSyD5bCOfO29kCv2mIdmYa6CEKhud4Gs1YIU',
-      iosKey: 'AIzaSyBZo6-selWq9F-oQqwjr9eB2VpSvFc9DYE',
-      webKey: 'AIzaSyAtMxD7Nb6Z06IL2yg8DbI56xoneVhXSNQ',
+      androidKey: 'AIzaSyDiTyxvZieD7lPbqoUFuWBBAUKLRY67nGo',
+      iosKey: 'AIzaSyDpORod7rluMMBR2NYoe_KN6sIY5JYQ8uU',
+      webKey: 'AIzaSyDOcNtYxrE44pR6785ahQv7CdAaFOTUhgA',
     ),
   );
 
