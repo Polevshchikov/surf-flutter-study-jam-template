@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
-import 'package:surf_practice_chat_flutter/screens/chat/utils/side_arrow_left.dart';
-import 'package:surf_practice_chat_flutter/screens/chat/utils/side_arrow_right.dart';
-import 'package:surf_practice_chat_flutter/screens/chat/widgets/card_users_widget.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/chat_screen_widget_model.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/utils/side_arrow_left.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/utils/side_arrow_right.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/card_users_widget.dart';
 
 class ChatMessageWidget extends StatelessWidget {
   final List<ChatMessageDto> chatMessages;
-  const ChatMessageWidget({Key? key, required this.chatMessages})
-      : super(key: key);
+  final IChatWidgetModel wm;
+  const ChatMessageWidget({Key? key, required this.chatMessages, required this.wm}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+        controller: wm.listViewController,
         reverse: true,
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         itemCount: chatMessages.length,
@@ -42,14 +44,11 @@ class ChatMessageWidget extends StatelessWidget {
                                       right: 20,
                                       bottom: 10,
                                     ),
-                                    child: chatMessages[index]
-                                            is ChatMessageGeolocationDto
+                                    child: chatMessages[index] is ChatMessageGeolocationDto
                                         ? Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              const Text(
-                                                  'Поделился геолокацией'),
+                                              const Text('Поделился геолокацией'),
                                               GestureDetector(
                                                 onTap: () {},
                                                 child: const Text(
@@ -57,8 +56,7 @@ class ChatMessageWidget extends StatelessWidget {
                                                   style: TextStyle(
                                                       color: Colors.deepPurple,
                                                       fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w700),
+                                                      fontWeight: FontWeight.w700),
                                                 ),
                                               ),
                                             ],
@@ -74,20 +72,14 @@ class ChatMessageWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    DateFormat('yyyy-MM-dd').format(
-                                        chatMessages[index].createdDateTime),
-                                    style: TextStyle(
-                                        color: Colors.blue[900],
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700),
+                                    DateFormat('yyyy-MM-dd').format(chatMessages[index].createdDateTime),
+                                    style:
+                                        TextStyle(color: Colors.blue[900], fontSize: 10, fontWeight: FontWeight.w700),
                                   ),
                                   Text(
-                                    DateFormat('kk:mm').format(
-                                        chatMessages[index].createdDateTime),
-                                    style: TextStyle(
-                                        color: Colors.blue[900],
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700),
+                                    DateFormat('kk:mm').format(chatMessages[index].createdDateTime),
+                                    style:
+                                        TextStyle(color: Colors.blue[900], fontSize: 10, fontWeight: FontWeight.w700),
                                   ),
                                 ],
                               ),
@@ -123,14 +115,11 @@ class ChatMessageWidget extends StatelessWidget {
                                       right: 20,
                                       bottom: 10,
                                     ),
-                                    child: chatMessages[index]
-                                            is ChatMessageGeolocationDto
+                                    child: chatMessages[index] is ChatMessageGeolocationDto
                                         ? Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              const Text(
-                                                  'Поделился геолокацией'),
+                                              const Text('Поделился геолокацией'),
                                               GestureDetector(
                                                 onTap: () {},
                                                 child: const Text(
@@ -138,8 +127,7 @@ class ChatMessageWidget extends StatelessWidget {
                                                   style: TextStyle(
                                                       color: Colors.deepPurple,
                                                       fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w700),
+                                                      fontWeight: FontWeight.w700),
                                                 ),
                                               ),
                                             ],
@@ -155,20 +143,14 @@ class ChatMessageWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    DateFormat('yyyy-MM-dd').format(
-                                        chatMessages[index].createdDateTime),
-                                    style: TextStyle(
-                                        color: Colors.green[900],
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700),
+                                    DateFormat('yyyy-MM-dd').format(chatMessages[index].createdDateTime),
+                                    style:
+                                        TextStyle(color: Colors.green[900], fontSize: 10, fontWeight: FontWeight.w700),
                                   ),
                                   Text(
-                                    DateFormat('kk:mm').format(
-                                        chatMessages[index].createdDateTime),
-                                    style: TextStyle(
-                                        color: Colors.green[900],
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700),
+                                    DateFormat('kk:mm').format(chatMessages[index].createdDateTime),
+                                    style:
+                                        TextStyle(color: Colors.green[900], fontSize: 10, fontWeight: FontWeight.w700),
                                   ),
                                 ],
                               ),
