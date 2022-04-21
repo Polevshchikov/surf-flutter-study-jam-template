@@ -10,8 +10,8 @@ part 'i_chat_widget_model.dart';
 
 /// Factory for [ChatScreenWidgetModel]
 ChatScreenWidgetModel chatScreenWidgetModelFactory(BuildContext context) {
-  final errorHandler = context.read<ErrorHandler>();
-  return ChatScreenWidgetModel(ChatScreenModel(errorHandler));
+  final model = context.read<ChatScreenModel>();
+  return ChatScreenWidgetModel(model);
 }
 
 /// Widget Model for [ChatScreen]

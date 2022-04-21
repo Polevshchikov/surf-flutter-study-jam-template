@@ -5,11 +5,10 @@ import 'package:surf_practice_chat_flutter/data/chat/repository/firebase.dart';
 
 class ChatScreenModel extends ElementaryModel {
   List<ChatMessageDto> _messages = [];
-  late final ChatRepository _chatRepository;
+  final ChatRepository _chatRepository;
 
-  ChatScreenModel(ErrorHandler errorHandler) : super(errorHandler: errorHandler) {
-    _chatRepository = ChatRepositoryFirebase(FirebaseFirestore.instance);
-  }
+  ChatScreenModel(ErrorHandler errorHandler, this._chatRepository)
+      : super(errorHandler: errorHandler);
 
   List<ChatMessageDto> get messages => _messages;
 
@@ -40,8 +39,10 @@ class ChatScreenModel extends ElementaryModel {
         _messages = await _chatRepository.messages;
       });
 
-      List<ChatMessageDto> _myListFiltered =
-          _messages.where((e) => e.author.name.toLowerCase().startsWith(nickname.toLowerCase())).toList();
+      List<ChatMessageDto> _myListFiltered = _messages
+          .where((e) =>
+              e.author.name.toLowerCase().startsWith(nickname.toLowerCase()))
+          .toList();
       if (_myListFiltered.isNotEmpty) {
         _messages = _myListFiltered;
       } else {
