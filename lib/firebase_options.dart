@@ -1,6 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
-import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter/foundation.dart'
+    show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -57,7 +58,8 @@ class DefaultFirebaseOptions {
         messagingSenderId: '885602153748',
         projectId: 'surf-study-jam',
         storageBucket: 'surf-study-jam.appspot.com',
-        iosClientId: '885602153748-1fhg3064shdav3607omu3oo0ml2hgv5g.apps.googleusercontent.com',
+        iosClientId:
+            '885602153748-1fhg3064shdav3607omu3oo0ml2hgv5g.apps.googleusercontent.com',
         iosBundleId: 'com.example.surfPracticeChatFlutter',
       );
 }

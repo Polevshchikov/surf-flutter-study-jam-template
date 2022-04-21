@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:surf_practice_chat_flutter/ui/screens/chat/chat_screen_widget_model.dart';
 
 class ProfileWidget extends StatelessWidget {
-  final IChatWidgetModel wm;
-  const ProfileWidget({Key? key, required this.wm}) : super(key: key);
+  final TextEditingController nickNameController;
+  const ProfileWidget({Key? key, required this.nickNameController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,12 @@ class ProfileWidget extends StatelessWidget {
               radius: MediaQuery.of(context).size.width * 0.3,
               backgroundColor: Colors.deepPurple,
               child: Text(
-                wm.nickNameController.text.isEmpty ? 'Нет имени' : wm.nickNameController.text[0],
-                style: TextStyle(color: Colors.white, fontSize: wm.nickNameController.text.isEmpty ? 30 : 80),
+                nickNameController.text.isEmpty
+                    ? 'Нет имени'
+                    : nickNameController.text[0],
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: nickNameController.text.isEmpty ? 30 : 80),
               ),
             ),
             SizedBox(
@@ -29,13 +33,15 @@ class ProfileWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextField(
-                      controller: wm.nickNameController,
+                      controller: nickNameController,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.multiline,
                       cursorColor: Colors.deepPurple,
                       style: const TextStyle(color: Colors.black, fontSize: 16),
                       decoration: InputDecoration(
-                        hintText: wm.nickNameController.text.isEmpty ? 'Введите ваше имя' : wm.nickNameController.text,
+                        hintText: nickNameController.text.isEmpty
+                            ? 'Введите ваше имя'
+                            : nickNameController.text,
                         hintStyle: const TextStyle(color: Colors.grey),
                       ),
                     ),

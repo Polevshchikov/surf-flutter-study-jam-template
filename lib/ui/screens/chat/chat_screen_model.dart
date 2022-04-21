@@ -4,51 +4,60 @@ import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
 import 'package:surf_practice_chat_flutter/data/chat/repository/firebase.dart';
 
 class ChatScreenModel extends ElementaryModel {
-  List<ChatMessageDto> _messages = [];
+  final EntityStateNotifier<List<ChatMessageDto>?> _messagesState =
+      EntityStateNotifier();
   late final ChatRepository _chatRepository;
 
-  ChatScreenModel(ErrorHandler errorHandler) : super(errorHandler: errorHandler) {
+  ChatScreenModel(ErrorHandler errorHandler)
+      : super(errorHandler: errorHandler) {
     _chatRepository = ChatRepositoryFirebase(FirebaseFirestore.instance);
   }
 
-  List<ChatMessageDto> get messages => _messages;
+  EntityStateNotifier<List<ChatMessageDto>?> get messages => _messagesState;
 
-  Future<void> getChat() async {
+  Future<void> fetchMessages() async {
     try {
-      _messages = await _chatRepository.messages;
+      _messagesState.loading();
+      final _messages = await _chatRepository.messages;
+      _messagesState.content(_messages);
     } on Exception catch (e) {
       handleError(e);
+      _messagesState.error(e);
       rethrow;
     }
   }
 
-  Future<void> sendMsg({
+  Future<void> onSendMessage({
     required String message,
     required String nickname,
   }) async {
     try {
-      _messages = await _chatRepository.sendMessage(nickname, message);
+      _messagesState.loading();
+      final _messages = await _chatRepository.sendMessage(nickname, message);
+      _messagesState.content(_messages);
     } on Exception catch (e) {
       handleError(e);
+      _messagesState.error(e);
       rethrow;
     }
   }
 
-  Future<void> searchUser(String nickname) async {
+  Future<void> searchMsg(String nickname) async {
     try {
-      Future.delayed(const Duration(milliseconds: 400), () async {
-        _messages = await _chatRepository.messages;
-      });
-
-      List<ChatMessageDto> _myListFiltered =
-          _messages.where((e) => e.author.name.toLowerCase().startsWith(nickname.toLowerCase())).toList();
+      _messagesState.loading();
+      final _messages = await _chatRepository.messages;
+      final _myListFiltered = _messages
+          .where((e) =>
+              e.author.name.toLowerCase().startsWith(nickname.toLowerCase()))
+          .toList();
       if (_myListFiltered.isNotEmpty) {
-        _messages = _myListFiltered;
+        _messagesState.content(_myListFiltered);
       } else {
-        _messages = [];
+        _messagesState.content([]);
       }
     } on Exception catch (e) {
       handleError(e);
+      _messagesState.error(e);
       rethrow;
     }
   }

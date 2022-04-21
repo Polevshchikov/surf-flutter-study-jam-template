@@ -15,9 +15,8 @@ ChatScreenWidgetModel chatScreenWidgetModelFactory(BuildContext context) {
 }
 
 /// Widget Model for [ChatScreen]
-class ChatScreenWidgetModel extends WidgetModel<ChatScreen, ChatScreenModel> implements IChatWidgetModel {
-  late EntityStateNotifier<List<ChatMessageDto>> _messagesController;
-
+class ChatScreenWidgetModel extends WidgetModel<ChatScreen, ChatScreenModel>
+    implements IChatWidgetModel {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _searchController = TextEditingController();
   final TextEditingController _msgController = TextEditingController();
@@ -27,7 +26,6 @@ class ChatScreenWidgetModel extends WidgetModel<ChatScreen, ChatScreenModel> imp
   @override
   void initWidgetModel() {
     super.initWidgetModel();
-    _messagesController = EntityStateNotifier();
     loadMsg();
   }
 
@@ -53,50 +51,35 @@ class ChatScreenWidgetModel extends WidgetModel<ChatScreen, ChatScreenModel> imp
   ScrollController get listViewController => _listViewController;
 
   @override
-  ListenableState<EntityState<List<ChatMessageDto>>> get messagesState => _messagesController;
+  ListenableState<EntityState<List<ChatMessageDto>?>> get messagesState =>
+      model.messages;
 
   @override
   Future<void> loadMsg() async {
     try {
-      _messagesController.loading();
-      await model.getChat();
-
-      _messagesController.content(model.messages);
+      await model.fetchMessages();
     } on FirebaseException catch (_) {
-      _messagesController.error(Exception('Cannot load messages'));
+      model.messages.error();
     }
   }
 
   @override
   Future<void> sendMsg() async {
     try {
-      await model.sendMsg(message: _msgController.text, nickname: _nameController.text);
+      await model.onSendMessage(
+          message: _msgController.text, nickname: _nameController.text);
       _msgController.clear();
-      _messagesController.content(model.messages);
     } on FirebaseException catch (_) {
-      _messagesController.error(Exception('Cannot send message'));
-    }
-  }
-
-  @override
-  Future<void> updateMsg() async {
-    try {
-      _messagesController.loading();
-      await model.getChat();
-      _messagesController.content(model.messages);
-    } on FirebaseException catch (_) {
-      _messagesController.error(Exception('Cannot update messages'));
+      model.messages.error();
     }
   }
 
   @override
   Future<void> searchMsg() async {
     try {
-      _messagesController.loading();
-      await model.searchUser(_searchController.text);
-      _messagesController.content(model.messages);
-    } on FirebaseException catch (_) {
-      _messagesController.error(Exception('Cannot load messages'));
+      await model.searchMsg(_searchController.text);
+    } on Exception catch (_) {
+      model.messages.error();
     }
   }
 }

@@ -17,10 +17,8 @@ class ChatBodyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       displacement: 100,
-      onRefresh: () async {
-        await wm.loadMsg();
-      },
-      child: EntityStateNotifierBuilder<List<ChatMessageDto>>(
+      onRefresh: wm.loadMsg,
+      child: EntityStateNotifierBuilder<List<ChatMessageDto>?>(
           listenableEntityState: wm.messagesState,
           loadingBuilder: (_, __) {
             return const Center(
@@ -62,9 +60,13 @@ class ChatBodyWidget extends StatelessWidget {
           errorBuilder: (_, __, ___) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Center(
+              children: [
+                const Center(
                   child: Text('Произошла ошибка, обновите чат'),
+                ),
+                ElevatedButton(
+                  onPressed: wm.loadMsg,
+                  child: const Text('Обновить чат'),
                 ),
               ],
             );

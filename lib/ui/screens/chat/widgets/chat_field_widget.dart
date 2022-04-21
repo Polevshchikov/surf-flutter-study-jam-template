@@ -10,14 +10,7 @@ class ChatFieldWidget extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
-          onTap: () {
-            // if (state.authorName.valid) {
-            //   await _chatCubit.sendGeolocation(
-            //     nickname: state.authorName.value,
-            //     message: state.message.value,
-            //   );
-            // }
-          },
+          onTap: () => throw UnimplementedError(),
           behavior: HitTestBehavior.opaque,
           child: const Padding(
             padding: EdgeInsets.only(right: 10.0),
@@ -39,9 +32,7 @@ class ChatFieldWidget extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () async {
-            await wm.sendMsg();
-          },
+          onTap: wm.sendMsg,
           behavior: HitTestBehavior.opaque,
           child: const Padding(
             padding: EdgeInsets.only(left: 10.0),

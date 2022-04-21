@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat/chat_screen_widget_model.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/chat_body_widget.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/profile_widget.dart';
-import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/users_field_widget.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/search_text_field.dart';
 
 class ChatScreen extends ElementaryWidget<IChatWidgetModel> {
   const ChatScreen({
@@ -22,7 +22,7 @@ class ChatScreen extends ElementaryWidget<IChatWidgetModel> {
             bottomRight: Radius.circular(30),
           ),
         ),
-        child: ProfileWidget(wm: wm),
+        child: ProfileWidget(nickNameController: wm.nickNameController),
       ),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -45,7 +45,9 @@ class ChatScreen extends ElementaryWidget<IChatWidgetModel> {
               )),
           child: AppBar(
             backgroundColor: Colors.transparent,
-            title: UsersFieldWidget(wm: wm),
+            title: SearchTextField(
+                onSearchMsg: wm.searchMsg,
+                searchController: wm.searchController),
           ),
         ),
       ),
