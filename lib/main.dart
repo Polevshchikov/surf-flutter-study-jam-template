@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:surf_practice_chat_flutter/firebase_options.dart';
 import 'package:surf_practice_chat_flutter/ui/app/app.dart';
+import 'package:surf_practice_chat_flutter/ui/app/app_dependencies.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,5 +15,7 @@ void main() async {
     ),
   );
 
-  runApp(const App());
+  runApp( const AppDependencies(
+    app: App(),
+  ),);
 }

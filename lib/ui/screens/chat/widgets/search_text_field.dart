@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/chat_screen_widget_model.dart';
 
 class SearchTextField extends StatelessWidget {
   final VoidCallback onSearchMsg;

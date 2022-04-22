@@ -1,17 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elementary/elementary.dart';
 import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
-import 'package:surf_practice_chat_flutter/data/chat/repository/firebase.dart';
 
 class ChatScreenModel extends ElementaryModel {
   final EntityStateNotifier<List<ChatMessageDto>?> _messagesState =
-      EntityStateNotifier();
-  late final ChatRepository _chatRepository;
+  EntityStateNotifier();
+  final ChatRepository _chatRepository;
 
-  ChatScreenModel(ErrorHandler errorHandler)
-      : super(errorHandler: errorHandler) {
-    _chatRepository = ChatRepositoryFirebase(FirebaseFirestore.instance);
-  }
+  ChatScreenModel(ErrorHandler errorHandler, this._chatRepository)
+      : super(errorHandler: errorHandler);
 
   EntityStateNotifier<List<ChatMessageDto>?> get messages => _messagesState;
 
