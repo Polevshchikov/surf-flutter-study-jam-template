@@ -17,42 +17,29 @@ void main() {
     wm = ChatScreenModel(errorHandlerMock, chatRepositoryMock);
   });
 
-  test('messages getter return empty messages', () {
-    expect( wm.messages,  same ( <ChatMessageDto>[]));
-  });
-
   test('Send message', () async {
     when(() => chatRepositoryMock.sendMessage(_nickNameMock, _messageMock))
         .thenAnswer(
       (_) => Future.value(_chatMessageMock),
     );
-    //
-    // expectLater(wm.sendMsg(message: _nickNameMock, nickname: _messageMock),
-    //     _chatMessageMock);
+
+    wm.sendMsg(message: _messageMock, nickname: _nickNameMock);
+
+    verify(()=> chatRepositoryMock.sendMessage(_nickNameMock, _messageMock)).called(1);
   });
 
   test('Load messages', () async {
     when(() => chatRepositoryMock.messages)
         .thenAnswer((_) => Future.value(_chatMessageMock));
-    // expect(wm.getChat(), _chatMessageMock);
+
+
+
   });
+
 }
-  //
-  // test('Send message', () async {
-  //   when(() => wm.sendMsg(message: _messageMock, nickname: _nickNameMock))
-  //       .thenAnswer(
-  //     (_) => Future.value(_chatMessageMock),
-  //   );
-  //
-  //   expectLater(wm.sendMsg(message: _nickNameMock, nickname: _messageMock),
-  //       _chatMessageMock);
-  // });
-  //
-  // test('Load messages', () async {
-  //   when(() => wm.getChat()).thenAnswer((_) => Future.value(_chatMessageMock));
-  //   expectLater(wm.getChat(), _chatMessageMock);
-  // });
-// }
+
+
+
 
 class ChatRepositoryMock extends Mock implements ChatRepository {}
 

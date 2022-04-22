@@ -45,7 +45,10 @@ class ChatScreen extends ElementaryWidget<IChatWidgetModel> {
               )),
           child: AppBar(
             backgroundColor: Colors.transparent,
-            title: UsersFieldWidget(wm: wm),
+            title: UsersFieldWidget(
+              searchController: wm.searchController,
+              onSearchMsg: wm.searchMsg,
+            ),
           ),
         ),
       ),
