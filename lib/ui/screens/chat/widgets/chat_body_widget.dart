@@ -1,25 +1,32 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
-import 'package:surf_practice_chat_flutter/ui/screens/chat/chat_screen_widget_model.dart';
-
 import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/chat_field_widget.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/chat_messages_widget.dart';
 
 class ChatBodyWidget extends StatelessWidget {
-  final IChatWidgetModel wm;
+  final ListenableState<EntityState<List<ChatMessageDto>?>> messagesState;
+  final VoidCallback sendMsg;
+  final VoidCallback loadMsg;
+  final TextEditingController msgController;
+  final ScrollController listViewController;
+
   const ChatBodyWidget({
     Key? key,
-    required this.wm,
+    required this.messagesState,
+    required this.sendMsg,
+    required this.loadMsg,
+    required this.msgController,
+    required this.listViewController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       displacement: 100,
-      onRefresh: wm.loadMsg,
+      onRefresh: () async => loadMsg,
       child: EntityStateNotifierBuilder<List<ChatMessageDto>?>(
-          listenableEntityState: wm.messagesState,
+          listenableEntityState: messagesState,
           loadingBuilder: (_, __) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -31,7 +38,10 @@ class ChatBodyWidget extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 6,
-                  child: ChatMessageWidget(chatMessages: _chatMessages, wm: wm),
+                  child: ChatMessageWidget(
+                    chatMessages: _chatMessages,
+                    listViewController: listViewController,
+                  ),
                 ),
                 Expanded(
                   flex: 1,
@@ -51,7 +61,10 @@ class ChatBodyWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: ChatFieldWidget(wm: wm),
+                    child: ChatFieldWidget(
+                      msgController: msgController,
+                      sendMsg: sendMsg,
+                    ),
                   ),
                 ),
               ],
@@ -65,7 +78,7 @@ class ChatBodyWidget extends StatelessWidget {
                   child: Text('Произошла ошибка, обновите чат'),
                 ),
                 ElevatedButton(
-                  onPressed: wm.loadMsg,
+                  onPressed: loadMsg,
                   child: const Text('Обновить чат'),
                 ),
               ],

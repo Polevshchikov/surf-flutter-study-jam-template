@@ -51,7 +51,13 @@ class ChatScreen extends ElementaryWidget<IChatWidgetModel> {
           ),
         ),
       ),
-      body: ChatBodyWidget(wm: wm),
+      body: ChatBodyWidget(
+        msgController: wm.msgController,
+        loadMsg: wm.loadMsg,
+        sendMsg: wm.sendMsg,
+        listViewController: wm.listViewController,
+        messagesState: wm.messagesState,
+      ),
     );
   }
 }

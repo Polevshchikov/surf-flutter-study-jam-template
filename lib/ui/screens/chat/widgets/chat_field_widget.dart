@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:surf_practice_chat_flutter/ui/screens/chat/chat_screen_widget_model.dart';
 
 class ChatFieldWidget extends StatelessWidget {
-  final IChatWidgetModel wm;
-  const ChatFieldWidget({Key? key, required this.wm}) : super(key: key);
+  final VoidCallback sendMsg;
+  final TextEditingController msgController;
+  const ChatFieldWidget({
+    Key? key,
+    required this.sendMsg,
+    required this.msgController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class ChatFieldWidget extends StatelessWidget {
         ),
         Expanded(
           child: TextField(
-            controller: wm.msgController,
+            controller: msgController,
             keyboardType: TextInputType.multiline,
             maxLines: 5,
             minLines: 1,
@@ -32,7 +36,7 @@ class ChatFieldWidget extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: wm.sendMsg,
+          onTap: sendMsg,
           behavior: HitTestBehavior.opaque,
           child: const Padding(
             padding: EdgeInsets.only(left: 10.0),

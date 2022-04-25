@@ -1,7 +1,7 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat/chat_screen_model.dart';
 
 void main() {
@@ -23,23 +23,17 @@ void main() {
       (_) => Future.value(_chatMessageMock),
     );
 
-    wm.sendMsg(message: _messageMock, nickname: _nickNameMock);
+    wm.onSendMessage(message: _messageMock, nickname: _nickNameMock);
 
-    verify(()=> chatRepositoryMock.sendMessage(_nickNameMock, _messageMock)).called(1);
+    verify(() => chatRepositoryMock.sendMessage(_nickNameMock, _messageMock))
+        .called(1);
   });
 
   test('Load messages', () async {
     when(() => chatRepositoryMock.messages)
         .thenAnswer((_) => Future.value(_chatMessageMock));
-
-
-
   });
-
 }
-
-
-
 
 class ChatRepositoryMock extends Mock implements ChatRepository {}
 
