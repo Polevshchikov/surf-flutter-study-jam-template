@@ -12,22 +12,30 @@ void main() {
       builder
         ..addScenario(
           'Message remove user',
-          MessageUserWidget(
-            chatMessage: ChatMessageDto(
-              author: const ChatUserDto(name: _nickNameMock),
-              message: _messageMock,
-              createdDateTime: _timeMock,
-            ),
+          Row(
+            children: [
+              MessageUserWidget(
+                chatMessage: ChatMessageDto(
+                  author: const ChatUserDto(name: _nickNameMock),
+                  message: _messageMock,
+                  createdDateTime: _timeMock,
+                ),
+              ),
+            ],
           ),
         )
         ..addScenario(
           'Message local user',
-          MessageUserWidget(
-            chatMessage: ChatMessageDto(
-              author: ChatUserLocalDto(name: _nickNameMock),
-              message: _messageMock,
-              createdDateTime: _timeMock,
-            ),
+          Row(
+            children: [
+              MessageUserWidget(
+                chatMessage: ChatMessageDto(
+                  author: ChatUserLocalDto(name: _nickNameMock),
+                  message: _messageMock,
+                  createdDateTime: _timeMock,
+                ),
+              ),
+            ],
           ),
         );
 

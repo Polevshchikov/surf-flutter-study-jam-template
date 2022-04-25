@@ -1,3 +1,4 @@
+import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -11,9 +12,10 @@ void main() {
   final chatWM = ChatWMMock();
 
   setUp(() {
-    // when(() => chatWM.messagesState).thenAnswer(
-    //   (_) => ListenableState<EntityState<List<ChatMessageDto>?>>(),
-    // );
+    when(() => chatWM.messagesState).thenAnswer(
+      (_) => EntityStateNotifier<List<ChatMessageDto>?>()
+        ..content(_chatMessageMock),
+    );
     when(() => chatWM.msgController).thenAnswer(
       (_) => TextEditingController(),
     );
@@ -36,7 +38,9 @@ void main() {
 
 class ChatWMMock extends Mock implements IChatWidgetModel {}
 
-const String _nickNameMock = 'User';
+const String _nickNameRemoveMock = 'Remove user';
+
+const String _nickNameLocalMock = 'Local user';
 
 const String _messageMock = 'Hello World';
 
@@ -44,7 +48,34 @@ final DateTime _timeMock = DateTime.utc(2022, 2, 22, 20, 18, 04);
 
 final _chatMessageMock = <ChatMessageDto>[
   ChatMessageDto(
-    author: const ChatUserDto(name: _nickNameMock),
+    author: const ChatUserDto(name: _nickNameRemoveMock),
+    message: _messageMock,
+    createdDateTime: _timeMock,
+  ),
+  ChatMessageDto(
+    author: ChatUserLocalDto(name: _nickNameLocalMock),
+    message: _messageMock,
+    createdDateTime: _timeMock,
+  ),
+  ChatMessageGeolocationDto(
+    author: ChatUserLocalDto(name: _nickNameLocalMock),
+    message: _messageMock,
+    createdDate: _timeMock,
+    location: ChatGeolocationDto(longitude: 20.0, latitude: 20.0),
+  ),
+  ChatMessageGeolocationDto(
+    author: const ChatUserDto(name: _nickNameRemoveMock),
+    message: _messageMock,
+    createdDate: _timeMock,
+    location: ChatGeolocationDto(longitude: 10.0, latitude: 10.0),
+  ),
+  ChatMessageDto(
+    author: const ChatUserDto(name: _nickNameRemoveMock),
+    message: _messageMock,
+    createdDateTime: _timeMock,
+  ),
+  ChatMessageDto(
+    author: const ChatUserDto(name: _nickNameRemoveMock),
     message: _messageMock,
     createdDateTime: _timeMock,
   ),

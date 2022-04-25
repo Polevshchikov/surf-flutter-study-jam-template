@@ -2,8 +2,7 @@ import 'package:elementary/elementary.dart';
 import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
 
 class ChatScreenModel extends ElementaryModel {
-  final EntityStateNotifier<List<ChatMessageDto>?> _messagesState =
-      EntityStateNotifier();
+  final _messagesState = EntityStateNotifier<List<ChatMessageDto>?>();
   final ChatRepository _chatRepository;
 
   ChatScreenModel(ErrorHandler errorHandler, this._chatRepository)
