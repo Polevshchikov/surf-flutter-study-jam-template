@@ -1,4 +1,4 @@
-export 'repository/repository.dart';
+export 'models/geolocation.dart';
 export 'models/message.dart';
 export 'models/user.dart';
-export 'models/geolocation.dart';
+export 'repository/repository.dart';

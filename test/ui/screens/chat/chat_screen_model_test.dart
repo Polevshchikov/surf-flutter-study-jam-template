@@ -23,7 +23,7 @@ void main() {
       (_) => Future.value(_chatMessageMock),
     );
 
-    wm.onSendMessage(message: _messageMock, nickname: _nickNameMock);
+    await wm.onSendMessage(message: _messageMock, nickname: _nickNameMock);
 
     verify(() => chatRepositoryMock.sendMessage(_nickNameMock, _messageMock))
         .called(1);

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:surf_practice_chat_flutter/ui/screens/chat/chat_screen_widget_model.dart';
 
 class SearchTextField extends StatelessWidget {
   final VoidCallback onSearchMsg;
   final TextEditingController searchController;
-  const SearchTextField(
-      {Key? key, required this.onSearchMsg, required this.searchController})
-      : super(key: key);
+  const SearchTextField({
+    required this.onSearchMsg,
+    required this.searchController,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class SearchTextField extends StatelessWidget {
         IconButton(
           onPressed: onSearchMsg,
           icon: const Icon(Icons.search),
-        )
+        ),
       ],
     );
   }

@@ -6,8 +6,10 @@ import 'package:surf_practice_chat_flutter/ui/screens/chat/utils/side_arrow_righ
 
 class MessageUserWidget extends StatelessWidget {
   final ChatMessageDto chatMessage;
-  const MessageUserWidget({Key? key, required this.chatMessage})
-      : super(key: key);
+  const MessageUserWidget({
+    required this.chatMessage,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +44,10 @@ class MessageUserWidget extends StatelessWidget {
                                     child: const Text(
                                       'Открыть в картах',
                                       style: TextStyle(
-                                          color: Colors.deepPurple,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700),
+                                        color: Colors.deepPurple,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -63,16 +66,18 @@ class MessageUserWidget extends StatelessWidget {
                         DateFormat('yyyy-MM-dd')
                             .format(chatMessage.createdDateTime),
                         style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700),
+                          color: Colors.blue[900],
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       Text(
                         DateFormat('kk:mm').format(chatMessage.createdDateTime),
                         style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700),
+                          color: Colors.blue[900],
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ],
                   ),
@@ -110,9 +115,10 @@ class MessageUserWidget extends StatelessWidget {
                                     child: const Text(
                                       'Открыть в картах',
                                       style: TextStyle(
-                                          color: Colors.deepPurple,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700),
+                                        color: Colors.deepPurple,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -131,16 +137,18 @@ class MessageUserWidget extends StatelessWidget {
                         DateFormat('yyyy-MM-dd')
                             .format(chatMessage.createdDateTime),
                         style: TextStyle(
-                            color: Colors.green[900],
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700),
+                          color: Colors.green[900],
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       Text(
                         DateFormat('kk:mm').format(chatMessage.createdDateTime),
                         style: TextStyle(
-                            color: Colors.green[900],
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700),
+                          color: Colors.green[900],
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ],
                   ),

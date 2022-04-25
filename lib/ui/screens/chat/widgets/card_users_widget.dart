@@ -3,8 +3,10 @@ import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
 
 class CardUsersWidget extends StatelessWidget {
   final ChatMessageDto chatMessage;
-  const CardUsersWidget({Key? key, required this.chatMessage})
-      : super(key: key);
+  const CardUsersWidget({
+    required this.chatMessage,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,9 @@ class CardUsersWidget extends StatelessWidget {
                         child: Text(
                           chatMessage.author.name[0],
                           style: const TextStyle(
-                              color: Colors.white, fontSize: 24),
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
                         ),
                       ),
                     ),

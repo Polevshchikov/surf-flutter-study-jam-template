@@ -1,18 +1,24 @@
+// ignore_for_file: cascade_invocations
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/chat_field_widget.dart';
 
-import '../../../../utils.dart';
-
 void main() {
   group('ChatFieldWidget test', () {
     testWidgets('Chat message field', (tester) async {
       await tester.pumpWidget(
-        makeTestableWidget(
-          ChatFieldWidget(
-            sendMsg: () {},
-            msgController: TextEditingController(),
+        MaterialApp(
+          home: Scaffold(
+            body: Stack(
+              children: [
+                ChatFieldWidget(
+                  sendMsg: () {},
+                  msgController: TextEditingController(),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -52,8 +58,9 @@ void main() {
         ..addScenario(
           'Unfocus with input',
           ChatFieldWidget(
-              sendMsg: () {},
-              msgController: TextEditingController(text: 'Hello my friends')),
+            sendMsg: () {},
+            msgController: TextEditingController(text: 'Hello my friends'),
+          ),
         );
 
       await tester.pumpWidgetBuilder(

@@ -1,18 +1,24 @@
+// ignore_for_file: cascade_invocations
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/search_text_field.dart';
 
-import '../../../../utils.dart';
-
 void main() {
   group('UsersFieldWidget test', () {
     testWidgets('search field', (tester) async {
       await tester.pumpWidget(
-        makeTestableWidget(
-          SearchTextField(
-            onSearchMsg: () {},
-            searchController: TextEditingController(),
+        MaterialApp(
+          home: Scaffold(
+            body: Stack(
+              children: [
+                SearchTextField(
+                  onSearchMsg: () {},
+                  searchController: TextEditingController(),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -44,8 +50,9 @@ void main() {
         ..addScenario(
           'Unfocus with input',
           SearchTextField(
-              onSearchMsg: () {},
-              searchController: TextEditingController(text: 'Hello')),
+            onSearchMsg: () {},
+            searchController: TextEditingController(text: 'Hello'),
+          ),
         );
 
       await tester.pumpWidgetBuilder(

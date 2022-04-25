@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -18,7 +20,8 @@ void main() {
         ..addScenario(
           'Unfocus with input',
           ProfileWidget(
-              nickNameController: TextEditingController(text: 'User')),
+            nickNameController: TextEditingController(text: 'User'),
+          ),
         );
 
       await tester.pumpWidgetBuilder(

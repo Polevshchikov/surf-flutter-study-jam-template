@@ -4,9 +4,9 @@ class ChatFieldWidget extends StatelessWidget {
   final VoidCallback sendMsg;
   final TextEditingController msgController;
   const ChatFieldWidget({
-    Key? key,
     required this.sendMsg,
     required this.msgController,
+    Key? key,
   }) : super(key: key);
 
   @override

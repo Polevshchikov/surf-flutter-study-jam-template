@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: avoid_equals_and_hash_code_on_mutable_classes
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/geolocation.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/message.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/user.dart';
@@ -9,10 +10,6 @@ class ChatRepositoryFirebase implements ChatRepository {
   static const String _messagesCollectionKey = 'messages';
 
   final FirebaseFirestore _firebaseClient;
-
-  ChatRepositoryFirebase(this._firebaseClient);
-
-  var _savedLocalName = '';
 
   @override
   Future<List<ChatMessageDto>> get messages async {
@@ -24,6 +21,10 @@ class ChatRepositoryFirebase implements ChatRepository {
     return result.docs.map(_parseFirebaseDataToLocal).toList();
   }
 
+  var _savedLocalName = '';
+
+  ChatRepositoryFirebase(this._firebaseClient);
+
   @override
   Future<List<ChatMessageDto>> sendMessage(
     String nickname,
@@ -34,7 +35,9 @@ class ChatRepositoryFirebase implements ChatRepository {
 
     _savedLocalName = nickname;
 
-    await _firebaseClient.collection(_messagesCollectionKey).add({
+    await _firebaseClient
+        .collection(_messagesCollectionKey)
+        .add(<String, Object>{
       _MessageFirebaseDto._authorNameKey: nickname,
       _MessageFirebaseDto._messageKey: message,
       _MessageFirebaseDto._createdKey: FieldValue.serverTimestamp(),
@@ -54,7 +57,9 @@ class ChatRepositoryFirebase implements ChatRepository {
 
     _savedLocalName = nickname;
 
-    await _firebaseClient.collection(_messagesCollectionKey).add({
+    await _firebaseClient
+        .collection(_messagesCollectionKey)
+        .add(<String, Object>{
       _MessageFirebaseDto._authorNameKey: nickname,
       _MessageFirebaseDto._messageKey: message ?? '',
       _MessageFirebaseDto._createdKey: FieldValue.serverTimestamp(),
@@ -74,7 +79,8 @@ class ChatRepositoryFirebase implements ChatRepository {
 
     if (name.length > ChatRepository.maxNameLength) {
       throw const InvalidNameException(
-          'Name cannot contain more than ${ChatRepository.maxNameLength} symbols');
+        'Name cannot contain more than ${ChatRepository.maxNameLength} symbols',
+      );
     }
   }
 
@@ -85,7 +91,8 @@ class ChatRepositoryFirebase implements ChatRepository {
 
     if (message.length > ChatRepository.maxMessageLength) {
       throw const InvalidNameException(
-          'Message cannot contain more than ${ChatRepository.maxMessageLength} symbols');
+        'Message cannot contain more than ${ChatRepository.maxMessageLength} symbols',
+      );
     }
   }
 
@@ -133,6 +140,9 @@ class _MessageFirebaseDto {
   final DateTime created;
   final GeoPoint? geolocation;
 
+  @override
+  int get hashCode => authorName.hashCode ^ message.hashCode ^ created.hashCode;
+
   _MessageFirebaseDto({
     required this.authorName,
     required this.message,
@@ -140,20 +150,12 @@ class _MessageFirebaseDto {
     required this.geolocation,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      _authorNameKey: authorName,
-      _messageKey: message,
-      _createdKey: created.millisecondsSinceEpoch,
-    };
-  }
-
   factory _MessageFirebaseDto.fromMap(Map<String, dynamic> map) {
     return _MessageFirebaseDto(
-      authorName: map[_authorNameKey] ?? '',
-      message: map[_messageKey] ?? '',
+      authorName: map[_authorNameKey] as String,
+      message: map[_messageKey] as String,
       created: (map[_createdKey] as Timestamp).toDate(),
-      geolocation: map[_geolocationKey],
+      geolocation: map[_geolocationKey] as GeoPoint?,
     );
   }
 
@@ -172,8 +174,13 @@ class _MessageFirebaseDto {
         other.created == created;
   }
 
-  @override
-  int get hashCode => authorName.hashCode ^ message.hashCode ^ created.hashCode;
+  Map<String, dynamic> toMap() {
+    return <String, Object>{
+      _authorNameKey: authorName,
+      _messageKey: message,
+      _createdKey: created.millisecondsSinceEpoch,
+    };
+  }
 
   _MessageFirebaseDto copyWith({
     String? authorName,
