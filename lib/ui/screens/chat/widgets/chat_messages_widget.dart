@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
-import 'package:surf_practice_chat_flutter/screens/chat/utils/side_arrow_left.dart';
-import 'package:surf_practice_chat_flutter/screens/chat/utils/side_arrow_right.dart';
-import 'package:surf_practice_chat_flutter/screens/chat/widgets/card_users_widget.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/chat_screen_widget_model.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/utils/side_arrow_left.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/utils/side_arrow_right.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/card_users_widget.dart';
 
 class ChatMessageWidget extends StatelessWidget {
   final List<ChatMessageDto> chatMessages;
-  const ChatMessageWidget({Key? key, required this.chatMessages})
+  final IChatWidgetModel wm;
+  const ChatMessageWidget(
+      {Key? key, required this.chatMessages, required this.wm})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+        controller: wm.listViewController,
         reverse: true,
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         itemCount: chatMessages.length,
@@ -132,7 +136,8 @@ class ChatMessageWidget extends StatelessWidget {
                                               const Text(
                                                   'Поделился геолокацией'),
                                               GestureDetector(
-                                                onTap: () {},
+                                                onTap: () =>
+                                                    throw UnimplementedError(),
                                                 child: const Text(
                                                   'Открыть в картах',
                                                   style: TextStyle(

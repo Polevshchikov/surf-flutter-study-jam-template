@@ -1,28 +1,28 @@
+import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/chat_screen_widget_model.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/chat_body_widget.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/profile_widget.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/search_text_field.dart';
 
-import 'package:surf_practice_chat_flutter/screens/chat/cubit/chat_cubit.dart';
-import 'package:surf_practice_chat_flutter/screens/chat/widgets/chat_body_widget.dart';
-import 'package:surf_practice_chat_flutter/screens/chat/widgets/profile_widget.dart';
-import 'package:surf_practice_chat_flutter/screens/chat/widgets/users_field_widget.dart';
-
-class ChatScreen extends StatelessWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+class ChatScreen extends ElementaryWidget<IChatWidgetModel> {
+  const ChatScreen({
+    Key? key,
+    WidgetModelFactory wmFactory = chatScreenWidgetModelFactory,
+  }) : super(wmFactory, key: key);
 
   @override
-  Widget build(BuildContext context) {
-    ChatCubit _chatCubit = context.read<ChatCubit>();
-    _chatCubit.getChat();
+  Widget build(IChatWidgetModel wm) {
     return Scaffold(
-      drawer: const Drawer(
-        backgroundColor: Color.fromARGB(220, 255, 255, 255),
-        shape: RoundedRectangleBorder(
+      drawer: Drawer(
+        backgroundColor: const Color.fromARGB(220, 255, 255, 255),
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(30),
             bottomRight: Radius.circular(30),
           ),
         ),
-        child: ProfileWidget(),
+        child: ProfileWidget(nickNameController: wm.nickNameController),
       ),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -45,11 +45,13 @@ class ChatScreen extends StatelessWidget {
               )),
           child: AppBar(
             backgroundColor: Colors.transparent,
-            title: const UsersFieldWidget(),
+            title: SearchTextField(
+                onSearchMsg: wm.searchMsg,
+                searchController: wm.searchController),
           ),
         ),
       ),
-      body: const ChatBodyWidget(),
+      body: ChatBodyWidget(wm: wm),
     );
   }
 }
