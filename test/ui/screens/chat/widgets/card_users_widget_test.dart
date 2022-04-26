@@ -6,37 +6,41 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/card_users_widget.dart';
 
+const String nickName = 'Local user';
+
 void main() {
-  // group('CardUsersWidget test', () {
-  //   testWidgets('Card user', (tester) async {
-  //     await tester.pumpWidget(
-  //       makeTestableWidget(
-  //         ChatFieldWidget(
-  //           sendMsg: () {},
-  //           msgController: TextEditingController(),
-  //         ),
-  //       ),
-  //     );
-  //
-  //     expect(find.text('Сообщение'), findsOneWidget);
-  //
-  //     final typeFinderSend = find.byWidgetPredicate((widget) {
-  //       if (widget is! Icon) {
-  //         return false;
-  //       }
-  //       return widget.icon == Icons.send;
-  //     });
-  //     expect(typeFinderSend, findsOneWidget);
-  //
-  //     final typeFinderLocation = find.byWidgetPredicate((widget) {
-  //       if (widget is! Icon) {
-  //         return false;
-  //       }
-  //       return widget.icon == Icons.share_location_outlined;
-  //     });
-  //     expect(typeFinderLocation, findsOneWidget);
-  //   });
-  // });
+  group('CardUsersWidget test', () {
+    testWidgets('Card user', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Stack(
+              children: [
+                CardUsersWidget(
+                  chatMessage: ChatMessageDto(
+                    author: ChatUserLocalDto(name: nickName),
+                    message: 'Hello users',
+                    createdDateTime: DateTime.utc(2022, 2, 22, 20, 18, 04),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text(nickName), findsOneWidget);
+
+      final typeFinderSend = find.byWidgetPredicate((widget) {
+        if (widget is! CircleAvatar) {
+          return false;
+        }
+        return widget.backgroundColor == Colors.deepPurple;
+      });
+      expect(typeFinderSend, findsOneWidget);
+      expect(find.text(nickName[0]), findsOneWidget);
+    });
+  });
 
   group('CardUsersWidget golden test', () {
     testGoldens('CardUsersWidget', (tester) async {

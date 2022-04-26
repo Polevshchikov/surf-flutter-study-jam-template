@@ -4,6 +4,22 @@ import 'package:mocktail/mocktail.dart';
 import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat/chat_screen_model.dart';
 
+class ChatRepositoryMock extends Mock implements ChatRepository {}
+
+class ErrorHandlerMock extends Mock implements ErrorHandler {}
+
+const String _nickNameMock = 'title';
+
+const String _messageMock = 'Hello World';
+
+final _chatMessageMock = <ChatMessageDto>[
+  ChatMessageDto(
+    author: const ChatUserDto(name: _nickNameMock),
+    message: _messageMock,
+    createdDateTime: DateTime.now(),
+  ),
+];
+
 void main() {
   late ChatRepositoryMock chatRepositoryMock;
 
@@ -34,19 +50,3 @@ void main() {
         .thenAnswer((_) => Future.value(_chatMessageMock));
   });
 }
-
-class ChatRepositoryMock extends Mock implements ChatRepository {}
-
-class ErrorHandlerMock extends Mock implements ErrorHandler {}
-
-const String _nickNameMock = 'title';
-
-const String _messageMock = 'Hello World';
-
-final _chatMessageMock = <ChatMessageDto>[
-  ChatMessageDto(
-    author: const ChatUserDto(name: _nickNameMock),
-    message: _messageMock,
-    createdDateTime: DateTime.now(),
-  ),
-];

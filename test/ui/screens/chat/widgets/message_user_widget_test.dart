@@ -6,6 +6,12 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/message_user_widget.dart';
 
+const String _nickNameMock = 'User';
+
+const String _messageMock = 'Hello World';
+
+final DateTime _timeMock = DateTime.utc(2022, 2, 22, 20, 18, 04);
+
 void main() {
   group('MessageUserWidget golden test', () {
     testGoldens('MessageUserWidget', (tester) async {
@@ -50,9 +56,3 @@ void main() {
     });
   });
 }
-
-const String _nickNameMock = 'User';
-
-const String _messageMock = 'Hello World';
-
-final DateTime _timeMock = DateTime.utc(2022, 2, 22, 20, 18, 04);
