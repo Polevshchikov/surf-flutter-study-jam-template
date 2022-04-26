@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class SearchTextField extends StatelessWidget {
   final VoidCallback onSearchMsg;
   final TextEditingController searchController;
-  const SearchTextField(
-      {Key? key, required this.onSearchMsg, required this.searchController})
-      : super(key: key);
+  const SearchTextField({
+    required this.onSearchMsg,
+    required this.searchController,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class SearchTextField extends StatelessWidget {
         IconButton(
           onPressed: onSearchMsg,
           icon: const Icon(Icons.search),
-        )
+        ),
       ],
     );
   }

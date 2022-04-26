@@ -4,7 +4,7 @@ import 'package:surf_practice_chat_flutter/firebase_options.dart';
 import 'package:surf_practice_chat_flutter/ui/app/app.dart';
 import 'package:surf_practice_chat_flutter/ui/app/app_dependencies.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(

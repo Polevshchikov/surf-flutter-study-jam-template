@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
   final TextEditingController nickNameController;
-  const ProfileWidget({Key? key, required this.nickNameController})
-      : super(key: key);
+  const ProfileWidget({
+    required this.nickNameController,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +25,9 @@ class ProfileWidget extends StatelessWidget {
                     ? 'Нет имени'
                     : nickNameController.text[0],
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: nickNameController.text.isEmpty ? 30 : 80),
+                  color: Colors.white,
+                  fontSize: nickNameController.text.isEmpty ? 30 : 80,
+                ),
               ),
             ),
             SizedBox(

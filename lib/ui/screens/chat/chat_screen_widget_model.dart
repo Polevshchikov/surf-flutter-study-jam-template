@@ -21,6 +21,23 @@ class ChatScreenWidgetModel extends WidgetModel<ChatScreen, ChatScreenModel>
   final TextEditingController _searchController = TextEditingController();
   final TextEditingController _msgController = TextEditingController();
   final ScrollController _listViewController = ScrollController();
+
+  @override
+  TextEditingController get nickNameController => _nameController;
+
+  @override
+  TextEditingController get msgController => _msgController;
+
+  @override
+  TextEditingController get searchController => _searchController;
+
+  @override
+  ScrollController get listViewController => _listViewController;
+
+  @override
+  ListenableState<EntityState<List<ChatMessageDto>?>> get messagesState =>
+      model.messages;
+
   ChatScreenWidgetModel(ChatScreenModel model) : super(model);
 
   @override
@@ -39,22 +56,6 @@ class ChatScreenWidgetModel extends WidgetModel<ChatScreen, ChatScreenModel>
   }
 
   @override
-  TextEditingController get nickNameController => _nameController;
-
-  @override
-  TextEditingController get msgController => _msgController;
-
-  @override
-  TextEditingController get searchController => _searchController;
-
-  @override
-  ScrollController get listViewController => _listViewController;
-
-  @override
-  ListenableState<EntityState<List<ChatMessageDto>?>> get messagesState =>
-      model.messages;
-
-  @override
   Future<void> loadMsg() async {
     try {
       await model.fetchMessages();
@@ -67,7 +68,10 @@ class ChatScreenWidgetModel extends WidgetModel<ChatScreen, ChatScreenModel>
   Future<void> sendMsg() async {
     try {
       await model.onSendMessage(
-          message: _msgController.text, nickname: _nameController.text);
+        message: _msgController.text,
+        nickname: _nameController.text,
+      );
+
       _msgController.clear();
     } on FirebaseException catch (_) {
       model.messages.error();
