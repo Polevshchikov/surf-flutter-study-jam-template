@@ -15,7 +15,9 @@ void main() async {
     ),
   );
 
-  runApp( const AppDependencies(
-    app: App(),
-  ),);
+  runApp(
+    const AppDependencies(
+      app: App(),
+    ),
+  );
 }

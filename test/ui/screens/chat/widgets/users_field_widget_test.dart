@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/users_field_widget.dart';
+import 'package:surf_practice_chat_flutter/ui/screens/chat/widgets/search_text_field.dart';
 
 import '../../../../utils.dart';
 
@@ -17,7 +17,7 @@ void main() {
     testWidgets('search field', (tester) async {
       await tester.pumpWidget(
         makeTestableWidget(
-          UsersFieldWidget(
+          SearchTextField(
             onSearchMsg: callbackMock,
             searchController: controllerMock,
           ),
