@@ -3,10 +3,12 @@ import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
 
 class CardUsersWidget extends StatelessWidget {
   final ChatMessageDto chatMessage;
+  
   const CardUsersWidget({
     required this.chatMessage,
     Key? key,
   }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

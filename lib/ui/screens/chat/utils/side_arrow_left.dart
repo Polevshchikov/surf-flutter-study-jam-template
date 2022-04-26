@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class SideArrowLeftClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
+
     final height = size.height;
     final width = size.width;
     final startMargin = width / 14;

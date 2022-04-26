@@ -71,6 +71,7 @@ class ChatScreenWidgetModel extends WidgetModel<ChatScreen, ChatScreenModel>
         message: _msgController.text,
         nickname: _nameController.text,
       );
+
       _msgController.clear();
     } on FirebaseException catch (_) {
       model.messages.error();

@@ -84,6 +84,7 @@ class ChatBodyWidget extends StatelessWidget {
           );
         },
       ),
+
     );
   }
 }

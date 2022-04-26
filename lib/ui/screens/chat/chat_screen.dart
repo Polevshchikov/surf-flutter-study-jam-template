@@ -58,6 +58,7 @@ class ChatScreen extends ElementaryWidget<IChatWidgetModel> {
         listViewController: wm.listViewController,
         messagesState: wm.messagesState,
       ),
+
     );
   }
 }
